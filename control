@@ -1,0 +1,13 @@
+Package: com.autopear.removebadges
+Name: Remove Badges
+Depends: firmware (>= 4.0), libactivator, applist
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Remove all app badges by Activator gesture.
+Section: Tweaks
+Priority: standard
+Author: Merlin <lonelystars@gmail.com>
+dev: lonelystars
+Tag: role::enduser, purpose::extension
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Sponsor: thebigboss.org <http://thebigboss.org/>

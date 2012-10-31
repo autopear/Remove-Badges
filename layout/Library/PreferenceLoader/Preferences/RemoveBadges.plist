@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>entry</key>
+	<dict>
+		<key>cell</key>
+		<string>PSLinkCell</string>
+		<key>icon</key>
+		<string>/Library/Activator/Listeners/com.autopear.removebadges/Icon-small.png</string>
+		<key>label</key>
+		<string>Remove Badges</string>
+	</dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>Activation Methods</string>
+			<key>isController</key>
+			<true/>
+			<key>bundle</key>
+			<string>LibActivator</string>
+			<key>activatorListener</key>
+			<string>com.autopear.removebadges</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Applications in the white list will keep their badges.</string>
+		</dict>
+		<dict>
+			<key>ALChangeNotification</key>
+			<string>com.autopear.removebadges/prefs</string>
+			<key>ALSectionDescriptors</key>
+			<array>
+				<dict>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<true/>
+				</dict>
+			</array>
+			<key>ALSettingsKeyPrefix</key>
+			<string>KeepBadge-</string>
+			<key>ALSettingsPath</key>
+			<string>/var/mobile/Library/Preferences/com.autopear.removebadges.plist</string>
+			<key>bundle</key>
+			<string>AppList</string>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>isController</key>
+			<true/>
+			<key>label</key>
+			<string>White List</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Copyright © 2012 Merlin Mao</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Remove Badges</string>
+</dict>
+</plist>

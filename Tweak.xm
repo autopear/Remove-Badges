@@ -47,8 +47,8 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
 
-    NSBundle *bundle = nil;
-    bundle = [[NSBundle alloc] initWithPath:@"/Library/PreferenceLoader/Preferences/RemoveBadges/"];
+	NSBundle *bundle = nil;
+	bundle = [[NSBundle alloc] initWithPath:@"/Library/PreferenceLoader/Preferences/RemoveBadges/"];
 
 	listenerTitle =  NSLocalizedStringFromTableInBundle(@"Remove Badges", @"RemoveBadges", bundle, @"Remove Badges");
 	listenerDescription =  NSLocalizedStringFromTableInBundle(@"Remove all app badges at once", @"RemoveBadges", bundle, @"Remove all app badges at once");
@@ -62,8 +62,8 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 {
 	if ([%c(SBIconModel) respondsToSelector:@selector(sharedInstance)])
 	{
-    	//iOS 4 & 5
-    	SBIconModel *iconModel = (SBIconModel*)[%c(SBIconModel) sharedInstance];
+		//iOS 4 & 5
+		SBIconModel *iconModel = (SBIconModel*)[%c(SBIconModel) sharedInstance];
 		for (NSString *identifier in [iconModel visibleIconIdentifiers])
 		{
 			if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
@@ -76,7 +76,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 				NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
 			}
 		}
-    }
+	}
 	else if ([%c(SBIconViewMap) respondsToSelector:@selector(homescreenMap)])
 	{
 		//iOS 6
@@ -88,7 +88,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 			SBIcon *icon = (SBIcon *)[[[%c(SBIconViewMap) homescreenMap] iconModel] applicationIconForDisplayIdentifier:identifier];
 			if (icon && [icon badgeNumberOrString])
 			{
-                [icon setBadge:nil];
+				[icon setBadge:nil];
 				NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
 			}
 		}

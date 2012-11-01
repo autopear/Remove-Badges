@@ -22,10 +22,12 @@
 @interface RemoveBadgesListener : NSObject <LAListener>
 @end
 
-static NSDictionary *preferences = nil;
-
 #define PreferencesChangedNotification "com.autopear.removebadges/prefs"
 #define PreferencesFilePath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.autopear.removebadges.plist"]
+
+static NSDictionary *preferences = nil;
+
+static NSString *listenerTitle, *listenerDescription;
 
 static void PreferencesChangedCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
@@ -40,31 +42,39 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 	if ((self = [super init]))
 	{
 	}
-    
-    preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
+
+	preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
-    
+
+    NSBundle *bundle = nil;
+    bundle = [[NSBundle alloc] initWithPath:@"/Library/PreferenceLoader/Preferences/RemoveBadges/"];
+
+	listenerTitle =  NSLocalizedStringFromTableInBundle(@"Remove Badges", @"RemoveBadges", bundle, @"Remove Badges");
+	listenerDescription =  NSLocalizedStringFromTableInBundle(@"Remove all app badges at once", @"RemoveBadges", bundle, @"Remove all app badges at once");
+
+	[bundle release];
+	
 	return self;
 }
 
 - (void)activator:(LAActivator *)activator receiveEvent:(LAEvent *)event
 {
 	if ([%c(SBIconModel) respondsToSelector:@selector(sharedInstance)])
-    {
+	{
     	//iOS 4 & 5
     	SBIconModel *iconModel = (SBIconModel*)[%c(SBIconModel) sharedInstance];
 		for (NSString *identifier in [iconModel visibleIconIdentifiers])
 		{
-            if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
+			if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
 				continue;
-                    
+
 			SBIcon *icon = (SBIcon *)[iconModel applicationIconForDisplayIdentifier:identifier];
-            if (icon && [icon badgeNumberOrString])
-            {
-                [icon setBadge:nil];
+			if (icon && [icon badgeNumberOrString])
+			{
+				[icon setBadge:nil];
 				NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
-            }
+			}
 		}
     }
 	else if ([%c(SBIconViewMap) respondsToSelector:@selector(homescreenMap)])
@@ -72,21 +82,31 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 		//iOS 6
 		for (NSString *identifier in [[[%c(SBIconViewMap) homescreenMap] iconModel] visibleIconIdentifiers])
 		{
-            if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
+			if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
 				continue;
 
 			SBIcon *icon = (SBIcon *)[[[%c(SBIconViewMap) homescreenMap] iconModel] applicationIconForDisplayIdentifier:identifier];
-            if (icon && [icon badgeNumberOrString])
-            {
+			if (icon && [icon badgeNumberOrString])
+			{
                 [icon setBadge:nil];
 				NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
-            }
+			}
 		}
 	}
 	else
 	{
 		//Not implemented
 	}
+}
+
+- (NSString *)activator:(LAActivator *)activator requiresLocalizedTitleForListenerName:(NSString *)listenerName;
+{
+	return listenerTitle;
+}
+
+- (NSString *)activator:(LAActivator *)activator requiresLocalizedDescriptionForListenerName:(NSString *)listenerName;
+{
+	return listenerDescription;
 }
 
 @end

@@ -1,3 +1,6 @@
+export TARGET=iphone:5.0:4.0
+export ARCHS = armv6
+
 include theos/makefiles/common.mk
 
 TWEAK_NAME = RemoveBadges

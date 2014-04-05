@@ -89,10 +89,23 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 
 - (UIImage *)activator:(LAActivator *)activator requiresIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
+    if (!listenerIcon) {
+        if ([UIScreen mainScreen].scale == 2.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
+    }
+
     return listenerIcon;
 }
 
 - (UIImage *)activator:(LAActivator *)activator requiresSmallIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
+    if (!listenerIcon) {
+        if ([UIScreen mainScreen].scale == 2.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
+    }
     return listenerIcon;
 }
 
@@ -148,10 +161,22 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 
 - (UIImage *)activator:(LAActivator *)activator requiresIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
+    if (!listenerIcon) {
+        if ([UIScreen mainScreen].scale == 2.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
+    }
     return listenerIcon;
 }
 
 - (UIImage *)activator:(LAActivator *)activator requiresSmallIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
+    if (!listenerIcon) {
+        if ([UIScreen mainScreen].scale == 2.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
+    }
     return listenerIcon;
 }
 
@@ -209,10 +234,22 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 }
 
 - (UIImage *)activator:(LAActivator *)activator requiresIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
+    if (!listenerIcon) {
+        if ([UIScreen mainScreen].scale == 2.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
+    }
     return listenerIcon;
 }
 
 - (UIImage *)activator:(LAActivator *)activator requiresSmallIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
+    if (!listenerIcon) {
+        if ([UIScreen mainScreen].scale == 2.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
+    }
     return listenerIcon;
 }
 
@@ -234,11 +271,6 @@ __attribute__((constructor)) static void BAL_Main() {
     listenerDescriptionExclusive = [NSLocalizedStringFromTableInBundle(@"Remove all app badges excluded in the list at once", @"RemoveBadges", bundle, @"Remove all app badges excluded in the list at once") retain];
 
     [bundle release];
-
-    if ([UIScreen mainScreen].scale == 2.0f)
-        listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
-    else
-        listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     
     RemoveBadgesListener *listener = [[RemoveBadgesListener alloc] init];
     [[LAActivator sharedInstance] registerListener:listener forName:@"com.autopear.removebadges"];

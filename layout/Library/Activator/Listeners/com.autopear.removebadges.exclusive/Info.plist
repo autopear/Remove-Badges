@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>description</key>
-	<string>Remove all app badges at once</string>
+	<string>Remove all app badges excluded in the list at once</string>
 	<key>title</key>
-	<string>Remove Badges</string>
+	<string>Remove Badges (Exclusive)</string>
 </dict>
 </plist>

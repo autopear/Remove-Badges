@@ -1,5 +1,11 @@
 "Activation Methods" = "Activation Methods";
-"Applications in the white list will keep their badges." = "Applications in the white list will keep their badges.";
+"Black List" = "Black List";
 "Remove all app badges at once" = "Remove all app badges at once";
+"Remove all app badges excluded in the list at once" = "Remove all app badges excluded in the list at once";
+"Remove all app badges included in the list at once" = "Remove all app badges included in the list at once";
+"Remove all applications' badges except in the white list." = "Remove all applications' badges except in the white list.";
+"Remove all applications' badges only in the black list." = "Remove all applications' badges only in the black list.";
+"Remove Badges (Exclusive)" = "Remove Badges (Exclusive)";
+"Remove Badges (Inclusive)" = "Remove Badges (Inclusive)";
 "Remove Badges" = "Remove Badges";
 "White List" = "White List";

@@ -1,5 +1,11 @@
 "Activation Methods" = "激活方式";
-"Applications in the white list will keep their badges." = "白名单中的应用程序的角标不会被移除。";
+"Black List" = "黑名单";
 "Remove all app badges at once" = "一次性清理全部应用程序角标";
+"Remove all app badges excluded in the list at once" = "一次性清理除白名单中的应用程序外的全部应用程序的角标";
+"Remove all app badges included in the list at once" = "一次性清理黑名单中的指定应用程序的角标";
+"Remove all applications' badges except in the white list." = "清理除白名单中的应用程序外的全部应用程序的角标。";
+"Remove all applications' badges only in the black list." = "清理黑名单中指定的应用程序的角标";
+"Remove Badges (Exclusive)" = "清理角标（排除）";
+"Remove Badges (Inclusive)" = "清理角标（仅限）";
 "Remove Badges" = "清理角标";
 "White List" = "白名单";

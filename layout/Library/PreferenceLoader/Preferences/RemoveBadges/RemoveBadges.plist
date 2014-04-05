@@ -7,7 +7,7 @@
 		<key>cell</key>
 		<string>PSLinkCell</string>
 		<key>icon</key>
-		<string>/Library/Activator/Listeners/com.autopear.removebadges/Icon-small.png</string>
+		<string>icon.png</string>
 		<key>label</key>
 		<string>Remove Badges</string>
 	</dict>
@@ -16,6 +16,8 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Remove Badges</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -32,8 +34,22 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Remove Badges (Exclusive)</string>
 			<key>footerText</key>
-			<string>Applications in the white list will keep their badges.</string>
+			<string>Remove all applications' badges except in the white list.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>Activation Methods</string>
+			<key>isController</key>
+			<true/>
+			<key>bundle</key>
+			<string>LibActivator</string>
+			<key>activatorListener</key>
+			<string>com.autopear.removebadges.exclusive</string>
 		</dict>
 		<dict>
 			<key>ALChangeNotification</key>
@@ -65,8 +81,55 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Remove Badges (Inclusive)</string>
 			<key>footerText</key>
-			<string>Copyright © 2012 Merlin Mao</string>
+			<string>Remove all applications' badges only in the black list.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>Activation Methods</string>
+			<key>isController</key>
+			<true/>
+			<key>bundle</key>
+			<string>LibActivator</string>
+			<key>activatorListener</key>
+			<string>com.autopear.removebadges.inclusive</string>
+		</dict>
+		<dict>
+			<key>ALChangeNotification</key>
+			<string>com.autopear.removebadges/prefs</string>
+			<key>ALSectionDescriptors</key>
+			<array>
+				<dict>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<true/>
+				</dict>
+			</array>
+			<key>ALSettingsKeyPrefix</key>
+			<string>RemoveBadge-</string>
+			<key>ALSettingsPath</key>
+			<string>/var/mobile/Library/Preferences/com.autopear.removebadges.plist</string>
+			<key>bundle</key>
+			<string>AppList</string>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>isController</key>
+			<true/>
+			<key>label</key>
+			<string>Black List</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Copyright © 2012-2014 Merlin Mao</string>
 		</dict>
 	</array>
 	<key>title</key>

@@ -1,5 +1,5 @@
-export TARGET=iphone:5.0:4.0
-export ARCHS = armv6
+export ARCHS = armv6 armv7 armv7s arm64
+export TARGET=iphone:7.1:4.0
 
 include theos/makefiles/common.mk
 
@@ -8,6 +8,15 @@ RemoveBadges_FILES = Tweak.xm
 RemoveBadges_FRAMEWORKS = Foundation UIKit
 RemoveBadges_LDFLAGS = -lactivator -Llib/
 
-TARGET_IPHONEOS_DEPLOYMENT_VERSION = 4.0
-
 include $(FW_MAKEDIR)/tweak.mk
+
+before-package::
+	find _ -name "*.plist" -exec plutil -convert binary1 {} \;
+	find _ -name "*.strings" -exec chmod 0644 {} \;
+	find _ -name "*.png" -exec chmod 0644 {} \;
+	find _ -name "*.plist" -exec chmod 0644 {} \;
+	find _ -exec touch -r _/Library/MobileSubstrate/DynamicLibraries/RemoveBadges.dylib {} \;
+
+after-package::
+	rm -fr .theos/packages/*
+

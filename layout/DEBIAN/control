@@ -1,12 +1,12 @@
 Package: com.autopear.removebadges
-Version: 1.0
+Version: 1.3
 Section: Tweaks
 Maintainer: BigBoss <bigboss@thebigboss.org>
-Depends: firmware (>= 4.0), mobilesubstrate, preferenceloader, libactivator, applist
+Depends: firmware (>= 4.0), mobilesubstrate, preferenceloader, libactivator (>= 1.8.3), applist
 Architecture: iphoneos-arm
 Name: Remove Badges
-Icon: file:///Library/Activator/Listeners/com.autopear.removebadges/Icon-small@2x.png
-Description: Remove all app badges by Activator gesture
+Icon: file:///Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png
+Description: Remove app badges by Activator gesture
 Sponsor: thebigboss.org <http://thebigboss.org>
 Author: Merlin
 Tag: purpose::extension, role::enduser

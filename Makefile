@@ -6,7 +6,7 @@ include theos/makefiles/common.mk
 TWEAK_NAME = RemoveBadges
 RemoveBadges_FILES = Tweak.xm
 RemoveBadges_FRAMEWORKS = Foundation UIKit
-RemoveBadges_LDFLAGS = -lactivator -Llib/
+RemoveBadges_LDFLAGS = -lactivator
 
 include $(FW_MAKEDIR)/tweak.mk
 

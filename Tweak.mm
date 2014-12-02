@@ -1,5 +1,8 @@
 #import <UIKit/UIKit.h>
-#import "libactivator/libactivator.h"
+#import <libactivator/libactivator.h>
+
+#define PreferencesChangedNotification "com.autopear.removebadges/prefs"
+#define PreferencesFilePath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.autopear.removebadges.plist"]
 
 @interface SBIconModel : NSObject
 + (id)sharedInstance; //iOS 4-7
@@ -28,9 +31,6 @@
 
 @interface RemoveBadgesExclusiveListener : NSObject <LAListener>
 @end
-
-#define PreferencesChangedNotification "com.autopear.removebadges/prefs"
-#define PreferencesFilePath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.autopear.removebadges.plist"]
 
 static NSDictionary *preferences = nil;
 
@@ -96,10 +96,16 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
     return listenerDescription;
 }
 
+- (NSString *)activator:(LAActivator *)activator requiresLocalizedGroupForListenerName:(NSString *)listenerName {
+    return listenerTitle;
+}
+
 - (UIImage *)activator:(LAActivator *)activator requiresIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
     if (!listenerIcon) {
         if (scale == 2.0f)
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else if (scale == 3.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@3x.png"];
         else
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     }
@@ -111,6 +117,8 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
     if (!listenerIcon) {
         if (scale == 2.0f)
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else if (scale == 3.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@3x.png"];
         else
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     }
@@ -123,10 +131,6 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 - (id)init {
     if ((self = [super init])) {
-        if (!preferences)
-            preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
-
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
     }
     return self;
 }
@@ -175,10 +179,16 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
     return listenerDescriptionInclusive;
 }
 
+- (NSString *)activator:(LAActivator *)activator requiresLocalizedGroupForListenerName:(NSString *)listenerName {
+    return listenerTitle;
+}
+
 - (UIImage *)activator:(LAActivator *)activator requiresIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
     if (!listenerIcon) {
         if (scale == 2.0f)
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else if (scale == 3.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@3x.png"];
         else
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     }
@@ -189,6 +199,8 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
     if (!listenerIcon) {
         if (scale == 2.0f)
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else if (scale == 3.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@3x.png"];
         else
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     }
@@ -201,10 +213,6 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 - (id)init {
     if ((self = [super init])) {
-        if (!preferences)
-            preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
-
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
     }
     return self;
 }
@@ -256,10 +264,16 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
     return listenerDescriptionExclusive;
 }
 
+- (NSString *)activator:(LAActivator *)activator requiresLocalizedGroupForListenerName:(NSString *)listenerName {
+    return listenerTitle;
+}
+
 - (UIImage *)activator:(LAActivator *)activator requiresIconForListenerName:(NSString *)listenerName scale:(CGFloat)scale {
     if (!listenerIcon) {
         if (scale == 2.0f)
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else if (scale == 3.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@3x.png"];
         else
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     }
@@ -270,6 +284,8 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
     if (!listenerIcon) {
         if (scale == 2.0f)
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png"];
+        else if (scale == 3.0f)
+            listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon@3x.png"];
         else
             listenerIcon = [[UIImage alloc] initWithContentsOfFile:@"/Library/PreferenceLoader/Preferences/RemoveBadges/icon.png"];
     }
@@ -281,7 +297,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 __attribute__((constructor)) static void BAL_Main() {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    NSBundle *bundle = [[NSBundle alloc] initWithPath:@"/Library/PreferenceLoader/Preferences/RemoveBadges/"];
+    NSBundle *bundle = [[NSBundle alloc] initWithPath:@"/Library/PreferenceLoader/Preferences/RemoveBadges"];
 
     listenerTitle = [NSLocalizedStringFromTableInBundle(@"Remove Badges", @"RemoveBadges", bundle, @"Remove Badges") retain];
     listenerDescription = [NSLocalizedStringFromTableInBundle(@"Remove all app badges at once", @"RemoveBadges", bundle, @"Remove all app badges at once") retain];
@@ -293,6 +309,10 @@ __attribute__((constructor)) static void BAL_Main() {
     listenerDescriptionExclusive = [NSLocalizedStringFromTableInBundle(@"Remove all app badges excluded in the list at once", @"RemoveBadges", bundle, @"Remove all app badges excluded in the list at once") retain];
 
     [bundle release];
+
+    preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
+
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
 
     RemoveBadgesListener *listener = [[RemoveBadgesListener alloc] init];
     [[LAActivator sharedInstance] registerListener:listener forName:@"com.autopear.removebadges"];

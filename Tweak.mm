@@ -21,6 +21,7 @@
 - (id)badgeNumberOrString; //iOS 5&6
 - (int)badgeValue; //iOS 5&6
 - (id)displayName; //iOS 5&6
+- (id)displayNameForLocation:(int)location; //iOS 8.4
 @end
 
 @interface RemoveBadgesListener : NSObject <LAListener>
@@ -80,7 +81,10 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
                 return;
             if (icon && [icon badgeNumberOrString]) {
                 [icon setBadge:nil];
-                NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
+                if ([%c(SBIcon) respondsToSelector:@selector(displayName)])
+                    NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
+                else
+                    NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
             }
         }
     } else {
@@ -162,7 +166,10 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
                     return;
                 if (icon && [icon badgeNumberOrString]) {
                     [icon setBadge:nil];
-                    NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
+                    if ([%c(SBIcon) respondsToSelector:@selector(displayName)])
+                        NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
+                    else
+                        NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
                 }
             }
         }
@@ -248,7 +255,10 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
             if (icon && [icon badgeNumberOrString]) {
                 [icon setBadge:nil];
-                NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
+                if ([%c(SBIcon) respondsToSelector:@selector(displayName)])
+                    NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
+                else
+                    NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
             }
         }
     } else {

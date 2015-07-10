@@ -1,8 +1,8 @@
 Package: com.autopear.removebadges
-Version: 1.5
+Version: 1.6
 Section: Tweaks
 Maintainer: BigBoss <bigboss@thebigboss.org>
-Depends: firmware (>= 4.0), mobilesubstrate, preferenceloader, libactivator (>= 1.8.3), applist
+Depends: firmware (>= 4.0), mobilesubstrate, preferenceloader, libactivator (>= 1.8.3), applist, gsc.armv7
 Architecture: iphoneos-arm
 Name: Remove Badges
 Icon: file:///Library/PreferenceLoader/Preferences/RemoveBadges/icon@2x.png

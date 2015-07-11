@@ -81,7 +81,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
                 return;
             if (icon && [icon badgeNumberOrString]) {
                 [icon setBadge:nil];
-                if ([%c(SBIcon) respondsToSelector:@selector(displayName)])
+                if ([icon respondsToSelector:@selector(displayName)])
                     NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
                 else
                     NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
@@ -166,7 +166,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
                     return;
                 if (icon && [icon badgeNumberOrString]) {
                     [icon setBadge:nil];
-                    if ([%c(SBIcon) respondsToSelector:@selector(displayName)])
+                    if ([icon respondsToSelector:@selector(displayName)])
                         NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
                     else
                         NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
@@ -255,7 +255,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
             if (icon && [icon badgeNumberOrString]) {
                 [icon setBadge:nil];
-                if ([%c(SBIcon) respondsToSelector:@selector(displayName)])
+                if ([icon respondsToSelector:@selector(displayName)])
                     NSLog(@"Badge removed: %@ (%@)", [icon displayName], identifier);
                 else
                     NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);

@@ -12,7 +12,7 @@
 @end
 
 @interface SBIconViewMap : NSObject
-+ (id)homescreenMap; //iOS 5&6
++ (id)homescreenMap; //iOS 5-9.2
 - (id)iconModel; //iOS 6
 @end
 
@@ -22,6 +22,11 @@
 - (int)badgeValue; //iOS 5&6
 - (id)displayName; //iOS 5&6
 - (id)displayNameForLocation:(int)location; //iOS 8.4
+@end
+
+@interface SBIconController : UIViewController
++(id)sharedInstance;
+-(SBIconViewMap *)homescreenIconViewMap; //New in 9.3
 @end
 
 @interface RemoveBadgesListener : NSObject <LAListener>
@@ -70,8 +75,8 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
         }
     } else if ([%c(SBIconViewMap) respondsToSelector:@selector(homescreenMap)]) {
         //iOS 6+
-        for (NSString *identifier in [[[%c(SBIconViewMap) homescreenMap] iconModel] visibleIconIdentifiers]) {
-            SBIconModel *iconModel = (SBIconModel *)[[%c(SBIconViewMap) homescreenMap] iconModel];
+        SBIconModel *iconModel = (SBIconModel *)[[%c(SBIconViewMap) homescreenMap] iconModel];
+        for (NSString *identifier in [iconModel visibleIconIdentifiers]) {
             SBIcon *icon = nil;
             if ([iconModel respondsToSelector:@selector(applicationIconForDisplayIdentifier:)])
                 icon = (SBIcon *)[iconModel applicationIconForDisplayIdentifier:identifier];
@@ -88,7 +93,18 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
             }
         }
     } else {
-        //Not implemented
+        SBIconController *iconCtrl = [%c(SBIconController) sharedInstance];
+        if ([iconCtrl respondsToSelector:@selector(homescreenIconViewMap)]) {
+            //iOS 9.3
+            SBIconModel *iconModel = (SBIconModel *)[[iconCtrl homescreenIconViewMap] iconModel];
+            for (NSString *identifier in [iconModel visibleIconIdentifiers]) {
+                SBIcon *icon = (SBIcon *)[iconModel applicationIconForBundleIdentifier:identifier];
+                if (icon && [icon badgeNumberOrString]) {
+                    [icon setBadge:nil];
+                    NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
+                }
+            }
+        }
     }
 }
 
@@ -154,9 +170,9 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
         }
     } else if ([%c(SBIconViewMap) respondsToSelector:@selector(homescreenMap)]) {
         //iOS 6+
-        for (NSString *identifier in [[[%c(SBIconViewMap) homescreenMap] iconModel] visibleIconIdentifiers]) {
+        SBIconModel *iconModel = (SBIconModel *)[[%c(SBIconViewMap) homescreenMap] iconModel];
+        for (NSString *identifier in [iconModel visibleIconIdentifiers]) {
             if ([[preferences objectForKey:[@"RemoveBadge-" stringByAppendingString:identifier]] boolValue]) {
-                SBIconModel *iconModel = (SBIconModel *)[[%c(SBIconViewMap) homescreenMap] iconModel];
                 SBIcon *icon = nil;
                 if ([iconModel respondsToSelector:@selector(applicationIconForDisplayIdentifier:)])
                     icon = (SBIcon *)[iconModel applicationIconForDisplayIdentifier:identifier];
@@ -174,7 +190,20 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
             }
         }
     } else {
-        //Not implemented
+        SBIconController *iconCtrl = [%c(SBIconController) sharedInstance];
+        if ([iconCtrl respondsToSelector:@selector(homescreenIconViewMap)]) {
+            //iOS 9.3
+            SBIconModel *iconModel = (SBIconModel *)[[iconCtrl homescreenIconViewMap] iconModel];
+            for (NSString *identifier in [iconModel visibleIconIdentifiers]) {
+                if ([[preferences objectForKey:[@"RemoveBadge-" stringByAppendingString:identifier]] boolValue]) {
+                    SBIcon *icon = (SBIcon *)[iconModel applicationIconForBundleIdentifier:identifier];
+                    if (icon && [icon badgeNumberOrString]) {
+                        [icon setBadge:nil];
+                        NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -240,11 +269,11 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
         }
     } else if ([%c(SBIconViewMap) respondsToSelector:@selector(homescreenMap)]) {
         //iOS 6+
-        for (NSString *identifier in [[[%c(SBIconViewMap) homescreenMap] iconModel] visibleIconIdentifiers]) {
+        SBIconModel *iconModel = (SBIconModel *)[[%c(SBIconViewMap) homescreenMap] iconModel];
+        for (NSString *identifier in [iconModel visibleIconIdentifiers]) {
             if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
                 continue;
 
-            SBIconModel *iconModel = (SBIconModel *)[[%c(SBIconViewMap) homescreenMap] iconModel];
             SBIcon *icon = nil;
             if ([iconModel respondsToSelector:@selector(applicationIconForDisplayIdentifier:)])
                 icon = (SBIcon *)[iconModel applicationIconForDisplayIdentifier:identifier];
@@ -262,7 +291,21 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
             }
         }
     } else {
-        //Not implemented
+        SBIconController *iconCtrl = [%c(SBIconController) sharedInstance];
+        if ([iconCtrl respondsToSelector:@selector(homescreenIconViewMap)]) {
+            //iOS 9.3
+            SBIconModel *iconModel = (SBIconModel *)[[iconCtrl homescreenIconViewMap] iconModel];
+            for (NSString *identifier in [iconModel visibleIconIdentifiers]) {
+                if ([[preferences objectForKey:[@"KeepBadge-" stringByAppendingString:identifier]] boolValue])
+                    continue;
+
+                SBIcon *icon = (SBIcon *)[iconModel applicationIconForBundleIdentifier:identifier];
+                if (icon && [icon badgeNumberOrString]) {
+                    [icon setBadge:nil];
+                    NSLog(@"Badge removed: %@ (%@)", [icon displayNameForLocation:0], identifier);
+                }
+            }
+        }
     }
 }
 
